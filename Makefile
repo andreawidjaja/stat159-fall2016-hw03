@@ -1,22 +1,21 @@
 .PHONY: data tests eda regression report clean all
 
-all: report eda regression
-
-data:
-	curl -O data/Advertising.csv http://www-bcf.usc.edu/~gareth/ISL/Advertising.csv
+all: eda regression report
 
 tests:
-	Rscript -e “library(testthat); test_file(‘test-that.R’)”
+	cd code/tests; Rscript -e "library(testthat); render('test-that.R')"
 
-eda: code/scripts/eda-script.R data/Advertising.csv
+eda:
 	cd code/scripts; Rscript eda-script.R
-	cd code/scripts; Rscript session-info-script.R
 
-regression: code/scripts/regression-script.R data/Advertising.csv
-	cd code/scripts; Rscript regression-script.R;
+regression:
+	cd code/scripts; Rscript regression-script.R
 
-report/report.pdf: report/report.Rmd
+report:
 	cd report; Rscript -e "library(rmarkdown); render('report.Rmd')"
+
+data:
+	cd data; curl -O http://www-bcf.usc.edu/~gareth/ISL/Advertising.csv > Advertising.csv
 
 clean:
 	rm -f report/report.pdf
