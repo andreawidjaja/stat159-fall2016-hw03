@@ -1,24 +1,34 @@
-#Read data
+#Read in advertising data set
 advertising <- read.csv('../../data/Advertising.csv')
 
-#Produce text file containing summary statistics
+
+#Advertising Summary Statistics
+summary <- summary(advertising)
+#Advertising Correlation Matrix
+correlation_matrix <- cor(advertising)
+
+
+#Generate eda-output.txt
 sink("../../data/eda-output.txt")
-'Summary of TV'
-summary(advertising$TV)
-'Summary of Radio'
-summary(advertising$Radio)
-'Summary of Newspaper'
-summary(advertising$Newspaper)
-'Summary of Sales'
-summary(advertising$Sales)
-'Summary of Everything'
-summary(advertising)
-'Correlation Matrix'
-cor(advertising)
+
+cat("Summary Statistics of Advertising\n")
+print(summary)
+
+cat("\n\n")
+
+cat("Summary Correlation Matrix\n")
+print(correlation_matrix)
 sink()
 
-#Save the matrix correlation to Rdata file
-save(cor(advertising), file='../../data/correlation-matrix.RData')
+
+#Save the matrix correlation to binary format
+save(correlation_matrix, file='../../data/correlation-matrix.RData')
+
+
+#-----------------------------------------
+#Exploratory Charts
+#-----------------------------------------
+
 
 #Scatterplot Matrix
 png('../../images/scatterplot-matrix.png')
