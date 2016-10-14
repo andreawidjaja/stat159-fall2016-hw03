@@ -1,7 +1,7 @@
 #Read in advertising data set
+#----------------------------
 advertising <- read.csv('../../data/Advertising.csv')
 
-#------------------------
 #Multiple Regression
 #------------------------
 
@@ -10,7 +10,7 @@ regression_object <- lm(Sales~TV+Radio+Newspaper, data=advertising)
 #Regression Object Summary
 regression_summary <- summary(regression_object)
 
-#------------------------
+
 #Individual Simple Regression
 #------------------------
 #TV Regression
@@ -21,14 +21,12 @@ Radio_regression <- lm(Sales ~ Radio, data=advertising)
 Newspaper_regression <- lm(Sales ~ Newspaper, data=advertising)
 
 
-#----------------------------------
 #Objects Saved in regression.RData
 #----------------------------------
 
-save(TV_regression, Radio_regression, Newspaper_regression, regression_object, regression_summary, file = "../../data/regression.RData")
+save(advertising, TV_regression, Radio_regression, Newspaper_regression, regression_object, regression_summary, file = "../../data/regression.RData")
 
 
-#------------------------------
 #Diagnostocs Plots
 #------------------------------
 
@@ -48,7 +46,6 @@ plot(regression_object, which = 2)
 dev.off()
 
 
-#-------------------------------------------
 #Individual Simple Regression Scatterplots
 #-------------------------------------------
 #TV Sales Scatterplot

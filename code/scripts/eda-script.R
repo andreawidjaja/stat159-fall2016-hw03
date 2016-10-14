@@ -1,5 +1,6 @@
 #Read in advertising data set
 advertising <- read.csv('../../data/Advertising.csv')
+advertising ['X'] <- NULL
 
 
 #Advertising Summary Statistics
