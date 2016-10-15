@@ -3,7 +3,7 @@
 all: eda regression report
 
 tests:
-	cd code/tests; Rscript -e "library(testthat); render('test-that.R')"
+	cd code; Rscript -e "library(testthat); test_file('test-that.R')"
 
 eda:
 	cd code/scripts; Rscript eda-script.R
@@ -19,3 +19,6 @@ data:
 
 clean:
 	rm -f report/report.pdf
+
+session-info.txt: code/scripts/session-info-script.R
+	cd code/scripts/session-info-script.R

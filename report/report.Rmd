@@ -5,7 +5,7 @@ date: "10/14/16"
 output: pdf_document
 ---
 
-```{r echo=FALSE}
+```{r echo=FALSE, warning=FALSE}
 library(png)
 library(grid)
 library(xtable)
@@ -13,7 +13,7 @@ load('../data/regression.Rdata')
 load('../data/correlation-matrix.RData')
 ```
 
-# Stat 159 Homework 2
+# Stat 159 Homework 3
 
 # Abstract  
 
@@ -29,20 +29,22 @@ Multiple Linear Regression is a predictive analysis tool that can interpret rela
 
 
 # Data  
-The data set given is [*Advertising Data Set*](http://www-bcf.usc.edu/~gareth/ISL/Advertising.csv), downloaded from `http://www-bcf.usc.edu/~gareth/ISL/Advertising.csv` called **Advertising.csv**. This data set contains the sales of a product (in thousands of units) across 200 different markets and the advertising budget (in thousands of dollars) for the product in each market. The advertising data contains budgets for three different advertising medias: TV, radio and newspaper. It has 200 records and 5 variables(index, TV, Radio, Newspaper, Sales). Each record contains the information of advertising budget for TV, Radio, and Newspaper, including the sales progress for each market.  
+The data set given is [*Advertising Data Set*](http://www-bcf.usc.edu/~gareth/ISL/Advertising.csv), downloaded from `http://www-bcf.usc.edu/~gareth/ISL/Advertising.csv` called **Advertising.csv**. This data set contains the sales of a product (in thousands of units) across `200` different markets and the advertising budget (in thousands of dollars) for the product in each market. The advertising data contains budgets for three different advertising medias: `TV`, `radio` and `newspaper`. It has `200` records and `5 variables(index, TV, Radio, Newspaper, Sales)`. Each record contains the information of advertising budget for `TV`, `Radio`, and `Newspaper`, including the sales progress for each market.  
 
-To give a rough picture on what data we are dealing with, these are the histograms for Sales and the advertising medias TV, Radio and Newspaper.
-```{r echo=FALSE, fig.width=4, fig.height=3, fig.cap="Sales Histogram"}
+To give a rough picture on what data we are dealing with, these are the histograms for Sales and the advertising medias TV, Radio and Newspaper.  
+
+
+```{r echo=FALSE, fig.width=3, fig.height=2, fig.cap="Sales Histogram"}
 sales_hist <- readPNG("../images/histogram-sales.png")
 grid.raster(sales_hist)
 ```
 
-```{r echo=FALSE, fig.width=4, fig.height=3, fig.cap="TV Histogram"}
+```{r echo=FALSE, fig.width=3, fig.height=2, fig.cap="TV Histogram"}
 tv_hist <- readPNG("../images/histogram-tv.png")
 grid.raster(tv_hist)
 ```
 
-```{r echo=FALSE, fig.width=4, fig.height=3, fig.cap="Radio Histogram"}
+```{r echo=FALSE, fig.width=3, fig.height=2, fig.cap="Radio Histogram"}
 radio_hist <- readPNG("../images/histogram-radio.png")
 grid.raster(radio_hist)
 ```
@@ -57,12 +59,12 @@ grid.raster(newspaper_hist)
 Suppose we know from above that a simple linear regression, taking into account for error, takes the form 
 $$ Y = \beta_0 + \beta_1X + \epsilon $$
 We know that multiple regression have several predictor $X$ variables. Say that we have $p$ numbers of predictors, then the multiple linear regression model takes the form $$ Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_3 + ... + \beta_pX_p + \epsilon $$
-where $X_i$ represents the ith predictor, $\beta_i$ indicates the correlation, $\beta_0$ as the intersection, and $\epsilon$ as the error. To make it more understandable, $\beta_i$ represents the average increase in $Y$ as $X_i$ increases by 1 unit, holding all other predictors fixed.
+where $X_i$ represents the ith predictor, $\beta_i$ indicates the correlation, $\beta_0$ as the intersection, and $\epsilon$ as the error. To make it more understandable, $\beta_i$ represents the average increase in $Y$ as $X_i$ increases by `1 unit`, holding all other predictors fixed.
 
 For our case, since we want to estimate the effect of advertising budgets of three different medias `TV`, `Newspaper`, and `Radio` onto `Sales`, then our multiple regression model can be represented like this $$ Sales = \beta_0 + \beta_1  TV + \beta_2  Radio + \beta_3  Newspaper + \epsilon $$
 
 ##Estimating The Coefficients
-Just like simple linear regression, we have to estimate the values of the regression coefficients $\beta_0,\beta_1,\beta_2,...,\beta_p$, because they are unknown. Using `lm()` in R, we can directly get the estimated values $\hat{\beta_0},\hat{\beta_1},\hat{\beta_2} and \hat{\beta_3}$. Additionaly, we can also use the `summary()` function to summarize the regression object, to get more statistical details. (_results can be seen in Table 4_)
+Just like simple linear regression, we have to estimate the values of the regression coefficients $\beta_0,\beta_1,\beta_2,...,\beta_p$, because they are unknown. Using `lm()` in R, we can directly get the estimated values $\hat{\beta_0},\hat{\beta_1},\hat{\beta_2} and \hat{\beta_3}$. Additionaly, we can also use the `summary()` function to summarize the regression object, to get more statistical details. (Table 4)
 
 ###F-Statistic
 Having the same concept with simple linear regression, it is important to know if there is actually a relationship between the response variable and the predictor variable. To determine wheter there is a relationship, one should conduct the null hypothesis to test if $\beta_0 = \beta_1 = \beta_2 = ... = \beta_p = 0$.
@@ -102,7 +104,7 @@ reg_tv <- xtable(summary(TV_regression)$coefficients, digits=4,
 print(reg_tv, type = "latex", comment=FALSE, caption.placement='top')
 ```
 
-From the estimate prediction above, we can see that for a $1,000 increase in TV advertising, there will be an increase in sales by around 50 units.
+From the estimate prediction above, we can see that for a `$1,000` increase in TV advertising, there will be an increase in sales by around `50 units`.
 
 
 ```{r results='asis', message=FALSE, echo=FALSE, warning=FALSE}
@@ -110,47 +112,38 @@ reg_radio <- xtable(summary(Radio_regression)$coefficients, digits=4,
                            caption='Regression of Radio on Sales (note: Sales are in thousands of dollars, and Radio is in thousands of units')
 print(reg_radio, type = "latex", comment=FALSE, caption.placement='top')
 ```
-From the estimate prediction above, we can see that for a $1,000 increase in TV advertising, there will be an increase in sales by around 203 units.
+  
+  
+From the estimate prediction above (table 2), we can see that for a `$1,000` increase in TV advertising, there will be an increase in sales by around `203 units`.
+  
+  
 
 ```{r results='asis', message=FALSE, echo=FALSE, warning=FALSE}
 reg_news <- xtable(summary(Newspaper_regression)$coefficients, digits=4,
                            caption='Regression of Newspaper on Sales(note: Sales are in thousands of dollars, and Newspaper is in thousands of units')
 print(reg_news, type = "latex", comment=FALSE, caption.placement='top')
 ```
-From the estimate prediction above, we can see that for a $1,000 increase in TV advertising, there will be an increase in sales by around 55 units.
+From the estimate prediction above (table 3), we can see that for a `$1,000` increase in TV advertising, there will be an increase in sales by around `55 units`.
   
-When doing three seperate simple linear regression, this ignores the other two media in forming estimates for the regression coefficients, which leades to misleading estimates of the individual media effects on sales.
+When doing three seperate simple linear regression, this ignores the other two media in forming estimates for the regression coefficients, which leades to misleading estimates of the individual media effects on sales. Therefore, we have to do multiple linear regression to get better results.
 
 
 ```{r results='asis', message=FALSE, echo=FALSE, warning=FALSE}
 reg_sum_table <- xtable(regression_summary$coefficients, digits=4,
-                           caption='Summary of Multiple Linear Regression Model')
+                           caption='Multiple Linear Regression Model')
 print(reg_sum_table, type = "latex", comment=FALSE, caption.placement='top')
 ```
 This table displays the multiple regression coefficient estimates when all three predictor variables (TV, radio, and newspaper advertising budgets) are used to predict product sales. We can see that the results in this table, differ from the predicted coefficents using seperate simple linear regression. The estimated coefficeint for TV and radio are pretty similar, however there are significant differences for the newspaper regression.
 
-We can see that the newspaper regression coefficient estimate is non-zero from the simple regression (table above), but close to zero in the multiple regression model. Additionaly, notice that the p-value is no longer significant, with a value around 0.86.
-
-```{r results='asis', message=FALSE, echo=FALSE, warning=FALSE}
-library(xtable)
-corr_matrix <- xtable(correlation_matrix, caption = "Correlation Matrix for The 3 Medias")
-print(corr_matrix, type = "latex", comment=FALSE, caption.placement='top')
-```
+We can see that the newspaper regression coefficient estimate is `non-zero` from the simple regression (Table 4), but close to zero in the multiple regression model. Additionaly, notice that the p-value is no longer significant, with a value around `0.86`.
 
 
 
-_*1. Is at least one of the predictors useful in predicting the response?*_  
+###Analysis Questions
+
+#####1. Is at least one of the predictors useful in predicting the response?
 
 Goal: F=statistic > 1, p-value=0
-
-```{r results='asis', message=FALSE, echo=FALSE}
-x = data.frame(
-  Quantity = c("RSE", "R^2", "F-statistic"),
-  Value = c(regression_summary$sigma, regression_summary$r.squared, regression_summary$fstatistic[1]))
-rqi <- xtable(x, digits=4,
-                           caption='Regression Quality Indices')
-print(rqi, type = "latex", comment=FALSE, caption.placement='top')
-```
 
 F-statistic: $$ F = \frac{(TSS-RSS)/p}{RSS/(n-p-1)}$$
 
@@ -161,87 +154,97 @@ An F-statistic that is jsut a little greater to 1, might still provide evidence 
 Since we are give the value of n and p, we can compute the p-value associated with the F-statistic.
 Since the p-value associated with the F-statistic is almost equals to 0, then there is an extremely strong evidence that at least one of the media is associated with increasing sales.
 
-_* 2. Do all predictors help to explain the response, or is only a subset of the predictors useful? *_
+```{r results='asis', message=FALSE, echo=FALSE, warning=FALSE}
+library(xtable)
+corr_matrix <- xtable(correlation_matrix, caption = "Correlation Matrix for The 3 Medias")
+print(corr_matrix, type = "latex", comment=FALSE, caption.placement='top')
+```
+
+#####2. Do all predictors help to explain the response, or is only a subset of the predictors useful?
 
 Goal: finding the fitted linear model containing variables with low p-value
 
-From the question above, computing the F-statistic and examining the associated p-value, we can determine if there are at least one predictor related to the response. Now, we want to know which of these predictors are useful. One way of approaching this question is to take a look at the individual p-values (TABLE). However, if p is large, then we are likely to make some false discoveries. It is possible to have all of the predictors associated with the response, however, most of the time, the response is only related to a subset of the predictors. Another way of selecting the "best" subset of predictors is by variable selection. We perform variable selection by trying out different models with different subset of predictors. In our case, we have 3 predictor variables $X_1$, $X_2$, and $X_3$.
+From the question above, computing the F-statistic and examining the associated p-value, we can determine if there are at least one predictor related to the response. Now, we want to know which of these predictors are useful. One way of approaching this question is to take a look at the individual p-values (table 4). However, if p is large, then we are likely to make some false discoveries. It is possible to have all of the predictors associated with the response, however, most of the time, the response is only related to a subset of the predictors. Another way of selecting the "best" subset of predictors is by variable selection. We perform variable selection by trying out different models with different subset of predictors. In our case, we have `3` predictor variables $X_1$, $X_2$, and $X_3$.
 
 $$ Sales = \beta_0 + \beta_1  TV + \beta_2  Radio + \beta_3  Newspaper + \epsilon $$
-$$ \Y = \beta_0 + \beta_1  \X_1 + \beta_2  \X_2 + \beta_3  \X_3 + \epsilon $$
+$$ Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \beta_3X_3 + \epsilon $$
 
 We can consider the following 8 models:
-1. A model containing no variables, \beta_0 only
-2. A model containing $\X_1$ only
-3. A model containing $\X_2$ only
-4. A model containing $\X_3$ only
-5. A model containing $\X_1$ and $\X_2$
-6. A model containing $\X_2$ and $\X_3$
-7. A model containing $\X_1$ and $\X_3$
-8. A model containing $\X_1$ $X_2$ and $\X_3$
+1. A model containing no variables, $\beta_0$ only
+2. A model containing $X_1$ only
+3. A model containing $X_2$ only
+4. A model containing $X_3$ only
+5. A model containing $X_1$ and $X_2$
+6. A model containing $X_2$ and $X_3$
+7. A model containing $X_1$ and $X_3$
+8. A model containing $X_1$ $X_2$ and $X_3$
 
 To approach this, there are 3 classical methods:
 * Forward selection - Starting with no variables in the model with only the intercept , we then proceed by adding a variable with the lowest RSS. This is continued until some stopping rule is satisfied.
 * Backward selection - Starting with all variables in the model, we proceed to the next step by removing the variable with the largest p-value. We refit the model, and remove the variable with the largest p-value again. We stop when all p-values are below a certain threshold.
-* Mixed selection - Combining Forward selection and Backward selection, Mixed selection start with no variables in the model, and add variables that provide the best fit one-by-one. As new predictors are added, the p-value for one of the variables in the model can get larger. If it rises above a certain treshold, then we should remove that variable. Continue to do this until all variables in the model have a low p=-value, and all variables outside the model have a large p-value if added to the model.
+* Mixed selection - Combining Forward selection and Backward selection, Mixed selection start with no variables in the model, and add variables that provide the best fit one-by-one. As new predictors are added, the p-value for one of the variables in the model can get larger. If it rises above a certain treshold, then we should remove that variable. Continue to do this until all variables in the model have a low p-value, and all variables outside the model have a large p-value if added to the model.
 
-The fitted linear model maximizes the correlation among all possible linear models.
+The fitted linear model maximizes the correlation among all possible linear models. For our case, only the subset of predictors TV and Radio are useful.
 
-_* 3. How well does the model fit the data? *_
+
+#####3. How well does the model fit the data?
+
+```{r results='asis', message=FALSE, echo=FALSE}
+x = data.frame(
+  Quantity = c("RSE", "R^2", "F-statistic"),
+  Value = c(regression_summary$sigma, regression_summary$r.squared, regression_summary$fstatistic[1]))
+rqi <- xtable(x, digits=4,
+                           caption='Regression Quality Indices')
+print(rqi, type = "latex", comment=FALSE, caption.placement='top')
+```
+
+Goal : high $R^2$, 
+
 After finding the fitted linear model, we should the accuracy of the model. The quality of a linear regression fit is assessed using two related quantities: _Residual Standard Error_ and $R^2 Statistic$.
 
 #####Residual Standard Error(RSE) 
-The RSE is an estimate of the standard deviation of $\epsilon$. It is the average amount that the response will deviate from the true regression line. Additionally, in simple words, it is a measure of the lack of fit of the linear model to the data.
-$$ RSE = \sqrt {( \frac{1}{n-2}) * RSS} $$
-$$ RSE = \sqrt {( \frac{1}{n-2}) * (\sum_{i=1}^n (y_i - \hat{y}_i)^2)}$$
+The RSE is an estimate of the standard deviation of $\epsilon$. It is the average amount that the response will deviate from the true regression line. In simple words, it is a measure of the lack of fit of the linear model to the data.
+$$ RSE = \sqrt {( \frac{1}{n-p-1}) * RSS} $$
+$$ RSE = \sqrt {( \frac{1}{n-p-1}) * (\sum_{i=1}^n (y_i - \hat{y}_i)^2)}$$
 
 When the RSE is small, then we can assume that for $i = 1,...,n$, $\hat{y}_i=y_i$.
 This means that we can conclude that the model fits the data very well.
 On the contrary, if $\hat{y}_i$ is very far from $y_i$, for one or more of the observations, then the RSE will be large, indicating that the model does not fit the data very well.
 
+For our case, the Residual Standard Error is `1.69`, and cosidered small, then our model fits the data well.
+
+
+
 ######R^2 Statistic
-The $R^2 Statistic$ provides an alternative measure of good fit to the RSE. It is a measure of the linear relationship between $X$ and $Y$, and has the range [0,1].
+The $R^2 Statistic$ provides an alternative measure of good fit to the RSE. It is a measure of the linear relationship between $X_i$ and $Y$, with a range of [0,1].
 
 Recall that in simple linear regretssion, $R^2$ is identical to the squared correlation. In mulitple linear regression, it is equals to
-$$ Cor (Y,\hat{y})^2 $$
+$$ Cor(Y,\hat{y})^2 $$
 the square of the correlation between the response and the fitted linear model.
-
-
 
 The formula of $R^2$ is given by:
 $$ R^2 = \frac{(TSS - RSS)}{TSS} \ = 1 - \frac{RSS}{TSS} $$
 where,
 $$ TSS = {\sum (y_i - \hat{y}_i)^2 } $$ is the total sum of squares.
 
+An $R^2$ value close to 1 shows that the model explains a large portion of the variance in the response variable. $R^2$ always increase as we add variables to the model. Generally, the higher the $R^2$ the better the model fits the data.
+
 If $R^2$ is near 0, then our linear model does not fit the data well. On the contrary, if $R^2$ is near 1, the our linear model fits the data well.
 
-_* 4. How accurate is the prediction? *_
+In our case, the $R^2$ is `0.90`, which indicates that our model does fit the data well.
 
-$\hat{\beta_0},\hat{\beta_1},\hat{\beta_2} and \hat{\beta_3}$
+#####4. How accurate is the prediction?
+Goal: calculate Confidence Intervals, and Prediction Intervals
 
+Suppose $\hat{\beta_0},\hat{\beta_1},\hat{\beta_2},...,\hat{\beta_p}$ are coefficient estimates for $\beta_0,\beta_1,\beta_2,...,\beta_p$, then we have the least squares plane
+$$ \hat{Y} = \hat{\beta_0}+\hat{\beta_1}X_1 + \hat{\beta_2}X_2 + ...+\hat{\beta_p}X_p$$
+is an extimate for the true population regression plane
+$$ f(X) = \beta_0+\beta_1X_1 + \beta_2X_2 + ...+\beta_pX_p$$
 
+From this, we can compute _confidence intervals_ in order to determine how close $\hat{Y}$ will be to $f(X)$. Additionally, we can also compute _prediction intervals_ to compute how much $Y$ will vary from $\hat{Y}$.
 
-```{r echo=FALSE, fig.width=4, fig.height=3, fig.cap="Scatterplot Matrix"}
-scatter_matrix <- readPNG("../images/scatterplot-matrix.png")
-grid.raster(scatter_matrix)
-```
-
-```{r echo=FALSE, fig.width=4, fig.height=3, fig.cap="TV Regression on Sales"}
-tv_sales <- readPNG("../images/scatterplot-tv-sales.png")
-grid.raster(tv_sales)
-```
-
-```{r echo=FALSE, fig.width=4, fig.height=3, fig.cap="Radio Regression on Sales"}
-radio_sales <- readPNG("../images/scatterplot-radio-sales.png")
-grid.raster(radio_sales)
-```
-
-```{r echo=FALSE, fig.width=4, fig.height=3, fig.cap="Newspaper Regression on Sales"}
-newspaper_sales <- readPNG("../images/scatterplot-newspaper-sales.png")
-grid.raster(newspaper_sales)
-```
-
-
+For our case, _confidence interval_ can be used to quantify the uncertainty surrpounding average `sales` over a large number of cities. _prediction intervals_ can be used to quantify the uncertainty surrounding `sales` of a _particular_ city.
 
 
 # Conclusions
+This paper contains indepth information regardin Multple Linear Regression. By modelling multiple linear regression, I have come to a better understanding of the effect of each predictor variables onto the response variable. For this case, the predictor variables that are useful are Radio and TV. Hence, to gain a fitted model with satisfying RSE and $R^2$ values, we have to remove the Newspaper variable.

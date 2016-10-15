@@ -2,16 +2,16 @@
 #Functions
 #------------------------
 
-# Residual Sum of Squares (RSS):
-# input: lm() object
+# calculates Residual Sum of Squares (RSS):
+# input: reg object
 # output: RSS value
 
 residual_sum_squares <- function(reg) {
 	sum((reg$residuals)^2)
 }
 
-# Total Sum of Squares (TSS):
-# input: lm() object
+# calculates Total Sum of Squares (TSS):
+# input: reg object
 # output: TSS value
 
 total_sum_squares <- function(reg) {
@@ -20,23 +20,23 @@ total_sum_squares <- function(reg) {
 	rss/(1-r2)
 }
 
-# R-Squared:
-# input: lm() object
+# calculates R-Squared:
+# input: reg object
 # output: R-squared value
 
 r_squared <- function(reg) {
 	(summary(reg))$r.squared
 }
 
-# F-Statistic:
-# input: lm() object
+# calculates F-Statistic:
+# input: reg object
 # output: F-Statistic value
 f_statistic <- function(reg) {
 	(summary(reg))$fstatistic[1]
 }
 
-# Residual Standard Error (RSE):
-# input: lm() object
+# calculates Residual Standard Error (RSE):
+# input: reg object
 # output: RSE
 residual_std_error <- function(reg) {
 	(summary(reg))$sigma
